@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Inventory</title>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="static/css/styles.css" />
+</head>
+
+<body>
+    <!--Add buttons to initiate auth sequence and sign out-->
+    <button id="authorize_button" style="display: none;">Authorize</button>
+    <button id="signout_button" style="display: none;">Sign Out</button>
+
+    <div id="items"></div>
+    <div id="info">
+        <b>Item List</b></br>
+        <ol></ol>
+    </div>
+
+    <div id="team" class="f choice" style="display: none;">
+        <div class="label">Team</div>
+        <div class="drop-prev drequired" tabindex="0"></div>
+        <div class="dropdown">
+            <div class="ditem">25600X</div>
+            <hr noshade>
+            <div class="ditem">25600H</div>
+            <hr noshade>
+            <div class="ditem">25600S</div>
+            <hr noshade>
+            <div class="ditem">25600V</div>
+            <hr noshade>
+            <div class="ditem">25600Z</div>
+        </div>
+    </div>
+
+    <div id="darkener"></div>
+    <div id="checkout" class="noblur">Check Out</div>
+    <div id="return" class="noblur">Return</div>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        document.write('<script type="text/javascript" src="static/js/index.js?cb=' + Math.round(new Date().getTime() / 1000) + '"></scr' + 'ipt>');
+    </script>
+    <script async defer src="https://apis.google.com/js/api.js" onload="handleClientLoad()"
+        onreadystatechange="if (this.readyState === 'complete') this.onload()">
+        </script>
+</body>
+
+</html>

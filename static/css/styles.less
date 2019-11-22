@@ -1,0 +1,224 @@
+/* FONTS */
+
+@import url("https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500");
+@import url('https://fonts.googleapis.com/css?family=Nova+Flat');
+@import url('https://fonts.googleapis.com/css?family=Inconsolata');
+
+/* MAIN */
+
+@background-color      : @slight;
+@dark                  : rgb(56, 59, 54);
+@slight                : rgb(244, 244, 244);
+@light                 : rgb(252, 252, 252);
+@red                   : #f54f43;
+@admissions-theme      : rgb(201, 162, 105);
+@admissions-theme-light: #E3D0B6;
+@main-font             : "Roboto",
+sans-serif;
+@radius             : 3px;
+@default-text-color : white;
+@highlight          : @red;
+@transition-anim    : cubic-bezier(.29, .87, .7, 1.02);
+@shadow             : 0 2px 5px 0 rgba(0, 0, 0, 0.2),
+0 2px 7px 0 rgba(0, 0, 0, 0.19);
+
+body {
+    font-family     : @main-font;
+    background-color: @background-color;
+    transition      : .2s;
+}
+
+#items {
+    position: absolute;
+    left    : 10px;
+    top     : 30px;
+    width   : fit-content;
+}
+
+#info {
+    position        : absolute;
+    right           : 10px;
+    top             : 30px;
+    width           : 200px;
+    background-color: @slight;
+    border          : 1px solid @dark;
+    border-radius   : @radius;
+    padding         : 5px;
+}
+
+.item {
+    vertical-align  : top;
+    display         : inline-block;
+    font-weight     : bold;
+    width           : fit-content;
+    user-select     : none;
+    margin          : 10px 5px;
+    padding         : 3px;
+    background-color: @light;
+    border-radius   : @radius;
+    box-shadow      : @shadow;
+    transition      : .3s @transition-anim;
+    z-index         : 2;
+}
+
+.item:hover {
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.4);
+}
+
+.specific {
+    padding         : 2px;
+    font-weight     : normal;
+    border-radius   : @radius;
+    display         : block;
+    cursor          : pointer;
+    color           : @dark;
+    background-color: @light;
+    transition      : @transition-anim .2s;
+}
+
+.specific:hover {
+    background-color: @red;
+    color           : white;
+}
+
+.name {
+    padding: 0 4px;
+}
+
+.quantity {
+    position        : relative;
+    float           : right;
+    border-radius   : 3px;
+    background-color: @dark;
+    color           : white;
+    padding         : 0 4px;
+}
+
+#checkout {
+    user-select     : none;
+    position        : fixed;
+    width           : fit-content;
+    left            : 5px;
+    bottom          : 5px;
+    border-radius   : 3px;
+    background-color: @red;
+    box-shadow      : @shadow;
+    color           : white;
+    padding         : 8px;
+    cursor          : pointer;
+    z-index         : 1;
+}
+
+#checkout:hover {
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.4);
+}
+
+#return {
+    user-select     : none;
+    position        : fixed;
+    width           : fit-content;
+    left            : 100px;
+    bottom          : 5px;
+    border-radius   : 3px;
+    background-color: rgb(104, 202, 109);
+    box-shadow      : @shadow;
+    color           : white;
+    padding         : 8px;
+    cursor          : pointer;
+    z-index         : 1;
+}
+
+#return:hover {
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.4);
+}
+
+#team {
+    position: fixed;
+    top     : 40%;
+    left    : 40%;
+    height  : 40px;
+    width   : 300px;
+    cursor  : pointer;
+    z-index : 5;
+}
+
+.label {
+    background-color: @light;
+    padding         : 0px 3px;
+    border-radius   : 2px;
+    width           : fit-content;
+    color           : gray;
+    pointer-events  : none;
+    transition      : .3s @transition-anim;
+    position        : relative;
+    left            : 5px;
+    top             : 20px;
+    font-size       : 16px;
+    z-index         : 2;
+}
+
+.drop-prev {
+    overflow        : hidden;
+    color           : grey;
+    position        : relative;
+    top             : -7px;
+    padding         : 6px;
+    font-family     : @main-font;
+    font-size       : 16px;
+    height          : 18px;
+    width           : ~"calc(100% - 6px)";
+    background-color: @light;
+    border          : 1px solid @light;
+    border-bottom   : 3px solid lightgrey;
+    border-radius   : @radius;
+    outline         : none;
+    transition      : .3s @transition-anim;
+}
+
+.drequired {
+    border-bottom: 3px solid @red;
+}
+
+.ditem {
+    color     : @dark;
+    display   : block;
+    cursor    : pointer;
+    transition: .3s @transition-anim;
+    padding   : 6px;
+}
+
+.ditem:hover {
+    background-color: lightgray;
+    color           : white;
+}
+
+.dropdown {
+    display         : none;
+    position        : relative;
+    width           : 100%;
+    //top           : -8px;
+    border          : 1px solid gray;
+    border-radius   : @radius;
+    background-color: @slight;
+
+    hr {
+        margin          : 0px 10px;
+        border          : none;
+        border-top      : 1px solid lightgray;
+        overflow        : visible;
+        background-color: @light;
+    }
+}
+
+#darkener {
+    pointer-events  : none;
+    position        : fixed;
+    left            : 0;
+    top             : 0;
+    width           : 100%;
+    height          : 100%;
+    opacity         : 0%;
+    background-color: black;
+    transition      : @transition-anim .3s;
+    z-index         : 3;
+}
