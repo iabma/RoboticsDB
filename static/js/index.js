@@ -104,7 +104,7 @@ function listMajors() {
         spreadsheetId: '1hi0CfPSYeptldUUOoDzRNmZJkqcT1YtOERzg_sEVgnU',
         range: 'Inventory!A3:D',
     }).then(response => {
-        console.log(response.result)
+        console.log(response.result);
         var range = response.result;
         if (range.values.length > 0) {
             let container;
@@ -118,6 +118,47 @@ function listMajors() {
                     name.innerHTML = row[0];
                     name.className = "name";
                     item.appendChild(name);
+                    items.appendChild(container);
+                    if (row[0] == "V5 Motor") {
+                        let numMotors = parseInt(row[1]);
+                        let quantity = document.createElement("span");
+                        quantity.innerHTML = numMotors + " motors";
+                        quantity.className = "specific";
+                        quantity.id = container.querySelector(".name").innerHTML;
+                        container.appendChild(quantity);
+                        quantity.onclick = () => {
+                            if (numMotors > 0) {
+                                if (checkoutList["V5 Motor"]) {
+                                    checkoutList["V5 Motor"] = {
+                                        quantity: increment(checkoutList["V5 Motor"], row[1])
+                                    }
+                                } else {
+                                    checkoutList["V5 Motor"] = {
+                                        quantity: 1
+                                    }
+                                }
+                            }
+                            updateList()
+                            numMotors--;
+                            quantity.innerHTML = numMotors + " motors"
+                        }
+                        quantity.oncontextmenu = e => {
+                            e.preventDefault();
+                            if (checkoutList["V5 Motor"]) {
+                                let prevqual = checkoutList["V5 Motor"]["quantity"]
+                                checkoutList["V5 Motor"] = {
+                                    quantity: decrement(checkoutList[name.innerHTML])
+                                }
+                                if (checkoutList["V5 Motor"]["quantity"] != prevqual) {
+                                    numMotors++;
+                                    quantity.innerHTML = numMotors + " motors"
+                                }
+                                if (checkoutList["V5 Motor"].quantity == -1)
+                                    delete checkoutList[name.innerHTML];
+                            }
+                            updateList();
+                        }
+                    }
                 } else {
                     let quantity = document.createElement("span");
                     quantity.innerHTML = "# " + row[1];
@@ -134,13 +175,7 @@ function listMajors() {
                     quantity.oncontextmenu = e => {
                         e.preventDefault();
                         delete checkoutList[name.innerHTML];
-                        if (checkoutList[name.innerHTML]) {
-                            checkoutList[name.innerHTML] = {
-                                quantity: decrement(checkoutList[name.innerHTML])
-                            }
-                            if (checkoutList[name.innerHTML].quantity == -1)
-                            updateList();
-                        }
+                        updateList();
                     }
                 }
             }
@@ -161,7 +196,6 @@ field.onfocus = () => { showDropdown(teamEntry, label, field, dropdown) }
 field.onblur = () => { hideDropdown(teamEntry, label, field, dropdown) }
 
 Array.from(dropdown.getElementsByClassName("ditem")).forEach(choice => {
-    console.log('t')
     choice.onmousedown = () => {
         field.innerHTML = choice.innerHTML;
         field.style.border = "2px solid #f54f43"
@@ -234,7 +268,12 @@ function formatList(team) {
     let buffer = action + "|" + team;
 
     Object.keys(checkoutList).forEach(item => {
-        buffer += "|" + item + ":" + checkoutList[item]["quantity"].substring(2);
+        let ting;
+        if (item == "V5 Motor")
+            ting = checkoutList[item]["quantity"]
+        else
+            ting = checkoutList[item]["quantity"].substring(2);
+        buffer += "|" + item + ":" + ting;
     });
 
     return buffer;
