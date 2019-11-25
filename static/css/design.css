@@ -57,6 +57,10 @@ body {
   border-radius: 3px;
   padding: 5px;
 }
+.status {
+  font-size: 12px;
+  color: gray;
+}
 .item {
   vertical-align: top;
   display: inline-block;
@@ -87,6 +91,9 @@ body {
 .specific:hover {
   background-color: #f54f43;
   color: white;
+}
+.specific:hover .status {
+  color: #eeeeee;
 }
 .name {
   padding: 0 4px;

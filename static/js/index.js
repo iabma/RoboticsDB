@@ -130,7 +130,8 @@ function listMajors() {
                             if (numMotors > 0) {
                                 if (checkoutList["V5 Motor"]) {
                                     checkoutList["V5 Motor"] = {
-                                        quantity: increment(checkoutList["V5 Motor"], row[1])
+                                        quantity: increment(checkoutList["V5 Motor"], row[1]),
+                                        inStock: row[2] == "Yes"
                                     }
                                 } else {
                                     checkoutList["V5 Motor"] = {
@@ -146,9 +147,7 @@ function listMajors() {
                             e.preventDefault();
                             if (checkoutList["V5 Motor"]) {
                                 let prevqual = checkoutList["V5 Motor"]["quantity"]
-                                checkoutList["V5 Motor"] = {
-                                    quantity: decrement(checkoutList[name.innerHTML])
-                                }
+                                checkoutList["V5 Motor"]["quantity"] = decrement(checkoutList[name.innerHTML]);
                                 if (checkoutList["V5 Motor"]["quantity"] != prevqual) {
                                     numMotors++;
                                     quantity.innerHTML = numMotors + " motors"
@@ -162,13 +161,21 @@ function listMajors() {
                 } else {
                     let quantity = document.createElement("span");
                     quantity.innerHTML = "# " + row[1];
+                    let status = document.createElement("span")
+                    status.className = "status"
+                    if (row[2] == "Yes")
+                        status.innerHTML += " <i>Checked Out</i>"
+                    else
+                        status.innerHTML += " <i>In Stock</i>"
                     quantity.className = "specific";
                     quantity.id = container.querySelector(".name").innerHTML;
+                    quantity.appendChild(status)
                     container.appendChild(quantity);
                     items.appendChild(container);
                     quantity.onclick = () => {
                         checkoutList[quantity.id] = {
-                            quantity: quantity.innerHTML
+                            quantity: quantity.innerHTML,
+                            inStock: row[2] == "Yes"
                         }
                         updateList()
                     }
@@ -272,7 +279,8 @@ function formatList(team) {
         if (item == "V5 Motor")
             ting = checkoutList[item]["quantity"]
         else
-            ting = checkoutList[item]["quantity"].substring(2);
+            if ((action == "checkout" && checkoutList["inStock"]) || (action == "return" && !checkoutList["inStock"]))
+                ting = checkoutList[item]["quantity"].substring(2);
         buffer += "|" + item + ":" + ting;
     });
 
