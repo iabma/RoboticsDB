@@ -60,8 +60,8 @@ def updateSheet():
       if action == "checkout":
         if data[0] in current_inventory:
           if data[0] == "V5 Motor":
-            inventory.update_acell("B35", int(inventory.acell("B35").value) + int(data[1]))
-            current_inventory[data[0]] = int(current_inventory[data[0]]) - int(data[1])
+            inventory.update_acell("B35", int(inventory.acell("B35").value) - int(data[1]))
+            current_inventory[data[0]] = int(current_inventory[data[0]]) + int(data[1])
           elif current_inventory[data[0]] != data[1]:
             current_inventory[data[0]] = data[1]
           print("### exists ###")
@@ -70,8 +70,8 @@ def updateSheet():
       else:
         if data[0] == "V5 Motor":
           if data[0] in current_inventory:
-            inventory.update_acell("B35", int(inventory.acell("B35").value) - int(data[1]))
-            current_inventory[data[0]] = max(int(current_inventory[data[0]]) + int(data[1]), 0)
+            inventory.update_acell("B35", int(inventory.acell("B35").value) + int(data[1]))
+            current_inventory[data[0]] = max(int(current_inventory[data[0]]) - int(data[1]), 0)
         else:
           if data[0] in current_inventory and current_inventory[data[0]] == data[1]:
             current_inventory.pop(data[0])
