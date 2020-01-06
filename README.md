@@ -1,1 +1,1 @@
-RoboticsDB
+Facilitates the checking out of Motors, Brains, Radios, and Controllers, in order to know which teams have which items. Running on a laptop in the basement, it interfaces with a Google Sheets spreadsheet containing the inventory.
